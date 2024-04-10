@@ -9,20 +9,18 @@ app.app_context().push()
 
 
 class Customer(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    eating_fre = db.Column(db.String(100))
+    momos_var = db.Column(db.String(100))
+    addon = db.Column(db.String(100))
+    gender = db.Column(db.String(100))
     name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False)
-    age = db.Column(db.Integer)  # Demographic: Age
-    gender = db.Column(db.String(10))  # Demographic:
-    city = db.Column(db.String(50))  # Geographic: City
-    state = db.Column(db.String(50))  # Geographic: State
-    country = db.Column(db.String(50))  # Geographic: Country
-    competitor_location = db.Column(db.String(100))  # Competitor Location Data
-    foot_traffic = db.Column(db.Integer)  # Foot Traffic Data
-    favorite_cuisine = db.Column(db.String(50))  # Food Trends:
-    social_media_followers = db.Column(db.Integer)  # Social Media Engagement 
-    ad_conversion_rate = db.Column(db.Float)  # Advertising Performance Data
-    # Add more fields as needed
+    preffered_time = db.Column(db.String(100))
+    age = db.Column(db.Integer)
+    place = db.Column(db.String(50))
+    occupation = db.Column(db.String(100))
+    review = db.Column(db.String)
+    substitute = db.Column(db.String)
 
     def __repr__(self):
         return f"<Customer {self.name}>"
@@ -39,44 +37,58 @@ def hello_world():
 @app.route('/submit', methods=['POST'])
 def submit_form():
     try:
-        data = request.json
-        name = data.get('name')
-        email = data.get('email')
-        age = data.get('age')
+        data = request.get_json()
+        fre = data.get('fre')
+        varity = data.get('varity')
+        addon = data.get('addon')
         gender = data.get('gender')  # Retrieve other fields as needed
-        city = data.get('city')
-        state = data.get('state')
-        country = data.get('country')
-        competitor_location = data.get('competitor_location')
-        foot_traffic = data.get('foot_traffic')
-        favorite_cuisine = data.get('favorite_cuisine')
-        social_media_followers = data.get('social_media_followers')
-        ad_conversion_rate = data.get('ad_conversion_rate')
-
+        name = data.get('name')
+        pre = data.get('pre')
+        age = data.get('age')
+        place = data.get('place')
+        occu = data.get('occu')
+        review = data.get('review')
+        substitute = data.get('substitute')
         # Validate fields (example: age must be between 18 and 120)
         if not (18 <= age <= 120):
             raise ValueError("Invalid age. Must be between 18 and 120.")
+        menu_dict = {
+            "vsmomos": "Veg Steamed Momos",
+            "vfmomos": "Veg Fried Momos",
+            "vcmomos": "Veg Chilli Momos",
+            "vgmomos": "Veg Gravy Momos",
+            "pmomos": "Paneer Momos",
+            "sbol": "Soya Bol",
+            "nsmomos": "Non-Veg Steamed Momos",
+            "nfmomos": "Non-Veg Fried Momos",
+            "ncmomos": "Non-Veg Chilli Momos",
+            "ngmomos": "Non-Veg Gravy Momos"
+        }
+        location_dict = {
+            "ismgate": "ISM Gate",
+            "hirapur": "Hirapur",
+            "citycenter": "City Center",
+            "bigbazzar": "Big Bazzar",
+            "memkomore": "Memko More"
+        }
 
         # Create a new customer record
         new_customer = Customer(
-            name=name,
-            email=email,
-            age=age,
+            eating_fre=fre,
+            momos_var=menu_dict[varity],
+            addon=addon,
             gender=gender,
-            city=city,
-            state=state,
-            country=country,
-            competitor_location=competitor_location,
-            foot_traffic=foot_traffic,
-            favorite_cuisine=favorite_cuisine,
-            social_media_followers=social_media_followers,
-            ad_conversion_rate=ad_conversion_rate
+            name=name,
+            preffered_time=pre,
+            age=age,
+            place=location_dict[place],
+            occupation=occu,
+            review=review,
+            substitute=substitute
         )
         db.session.add(new_customer)
         db.session.commit()
-
-        # return jsonify({'message': 'Data saved successfully!'}), 201
-        return render_template("index.html")
+        return jsonify({'message': 'Data saved successfully!'}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
