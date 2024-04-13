@@ -93,5 +93,11 @@ def submit_form():
         return jsonify({'error': str(e)}), 400
 
 
+@app.route('/client')
+def proxy_client():
+    ip_addr = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
+    return '<h1> Your IP address is:' + ip_addr
+
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -175,36 +175,64 @@
               <div class="mb-3">
                 <label for="fre" class="form-label">How often do you prefer to eat momos?
                 </label>
-                <select class="form-select" id="fre" v-model="formData.fre" required>
-                  <option value="Everyday">Everyday</option>
-                  <option value="Weekend">Weekend</option>
-                  <option value="Ocasnally">Ocasnally</option>
-                  <option value="Never">Never</option>
-                </select>
+                <input type="text" class="form-control" id="fre" v-model="formData.addon" required>
               </div>
               <!-- fav varity -->
               <div class="mb-3">
                 <label for="varity" class="form-label">Which one do you like the most?
                 </label>
                 <select class="form-select" id="fre" v-model="formData.varity" required>
-                  <option value="vsmomos">Veg Steamed Momos</option>
-                  <option value="vfmomos">Veg Fried Momos</option>
-                  <option value="vcmomos">Veg Chilli Momos</option>
-                  <option value="vgmomos">Veg Gravy Momos</option>
-                  <option value="pmomos">Paneer Momos</option>
-                  <option value="sbol">Soya Bol</option>
-                  <option value="nsmomos">Non-Veg Steamed Momos</option>
-                  <option value="nfmomos">Non-Veg Fried Momos</option>
-                  <option value="ncmomos">Non-Veg Chilli Momos</option>
-                  <option value="ngmomos">Non-Veg Gravy Momos</option>
+                  <option value="vmomos">VEG MOMO
+                  </option>
+                  <option value="chickenmomos">CHICKEN MOMO</option>
+                  <option value="paneermomos">PANEER MOMO</option>
+                  <option value="gravymomos">GRAVY MOMO</option>
+                  <option value="frymomos">FRY MOMO</option>
+                  <option value="sbmomos">SOYA BOL</option>
                 </select>
               </div>
+              <!-- select place -->
+              <div class="mb-3">
+                <label for="place" class="form-label">Select best Momos place in Dhanbad.
+                </label>
+                <select class="form-select" id="place" v-model="formData.place" required>
+                  <option value="wom">WOW MOMO'S HUT</option>
+                  <option value="super">Super Delicious Momos</option>
+                  <option value="spicy">SPICY CHAT & MOMO'S</option>
+                  <option value="panda">Momo Panda</option>
+                  <option value="xomo">MOMO XOMO</option>
+                  <option value="gmomo">Golu Momos Centre</option>
+                  <option value="darjeeling">Darjeeling Momos Rohit</option>
+                </select>
+              </div>
+              <!-- select preference -->
+              <div class="mb-3">
+                <label for="pre" class="form-label">When do you prefer to eat momos?</label>
+                <input type="text" class="form-control" id="pre" v-model="formData.addon" required>
+              </div>              
               <!-- add on with momos -->
               <div class="mb-3">
                 <label for="addon" class="form-label">What would you like as an addition to your momos?</label>
                 <input type="text" class="form-control" id="addon" v-model="formData.addon" required>
                 <div class="invalid-feedback">Please enter your name.</div>
               </div>
+              <!-- Competitor Location Data -->
+              <div class="mb-3">
+                <label for="substitute" class="form-label">Potential Substitute for momos..
+                </label>
+                <input type="text" class="form-control" id="review" v-model="formData.substitute" required>
+              </div>
+              <!-- Competitor Location Data -->
+              <div class="mb-3">
+                <label for="review" class="form-label">You review for the momos.
+                </label>
+                <input type="text" class="form-control" id="review" v-model="formData.review" required>
+              </div>
+              <!-- Demographic Information -->
+              <div class="mb-3">
+                <label for="age" class="form-label">Age</label>
+                <input type="number" class="form-control" id="age" v-model="formData.age" required>
+              </div>              
               <!-- select gender -->
               <div class="mb-3">
                 <label for="gender" class="form-label">Gender</label>
@@ -213,58 +241,20 @@
                   <option value="female">Female</option>
                 </select>
               </div>
-              <!-- Name Field -->
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" v-model="formData.name" required>
-                <div class="invalid-feedback">Please enter your name.</div>
-              </div>
-              <!-- select preference -->
-              <div class="mb-3">
-                <label for="pre" class="form-label">When do you prefer to eat momos?</label>
-                <select class="form-select" id="pre" v-model="formData.pre" required>
-                  <option value="Winter">Winter</option>
-                  <option value="Summer">Summer</option>
-                  <option value="Forever">Forever</option>
-                </select>
-              </div>
-              <!-- Demographic Information -->
-              <div class="mb-3">
-                <label for="age" class="form-label">Age</label>
-                <input type="number" class="form-control" id="age" v-model="formData.age" required>
-              </div>
-              <!-- select place -->
-              <div class="mb-3">
-                <label for="place" class="form-label">Select best Momos place in Dhanbad.
-                </label>
-                <select class="form-select" id="place" v-model="formData.place" required>
-                  <option value="ismgate">ISM Gate</option>
-                  <option value="hirapur">Hirapur</option>
-                  <option value="citycenter">City Center</option>
-                  <option value="bigbazzar">Big Bazzar</option>
-                  <option value="memkomore">Memko More</option>
-                </select>
-              </div>
               <!-- select occupation -->
               <div class="mb-3">
                 <label for="occu" class="form-label">Select best Momos place in Dhanbad.
                 </label>
                 <select class="form-select" id="occu" v-model="formData.occu" required>
-                  <option value="Student">Student</option>
-                  <option value="Professional">Professional</option>
+                  <option value="student">Student</option>
+                  <option value="professional">Professional</option>
                 </select>
-              </div>
-              <!-- Competitor Location Data -->
+              </div>              
+              <!-- Name Field -->
               <div class="mb-3">
-                <label for="review" class="form-label">You review for the momos.
-                </label>
-                <input type="text" class="form-control" id="review" v-model="formData.review" required>
-              </div>
-              <!-- Competitor Location Data -->
-              <div class="mb-3">
-                <label for="substitute" class="form-label">Potential Substitute for momos..
-                </label>
-                <input type="text" class="form-control" id="review" v-model="formData.substitute" required>
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" v-model="formData.name" required>
+                <div class="invalid-feedback">Please enter your name.</div>
               </div>
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -273,7 +263,6 @@
       </div>
     </div>
   </div>
-
   <script src="https://cdn.jsdelivr.net/npm/vue@3.2.20/dist/vue.global.prod.js"></script>
   <script>
     const app = Vue.createApp({
