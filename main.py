@@ -53,38 +53,36 @@ def submit_form():
         if not (18 <= age <= 120):
             raise ValueError("Invalid age. Must be between 18 and 120.")
         menu_dict = {
-            "vsmomos": "Veg Steamed Momos",
-            "vfmomos": "Veg Fried Momos",
-            "vcmomos": "Veg Chilli Momos",
-            "vgmomos": "Veg Gravy Momos",
-            "pmomos": "Paneer Momos",
-            "sbol": "Soya Bol",
-            "nsmomos": "Non-Veg Steamed Momos",
-            "nfmomos": "Non-Veg Fried Momos",
-            "ncmomos": "Non-Veg Chilli Momos",
-            "ngmomos": "Non-Veg Gravy Momos"
+            "vmomos": "VEG MOMO",
+            "chickenmomos": "CHICKEN MOMO",
+            "paneermomos": "PANEER MOMO",
+            "gravymomos": "GRAVY MOMO",
+            "frymomos": "FRY MOMO",
+            "sbmomos": "SOYA BOL"
         }
         location_dict = {
-            "ismgate": "ISM Gate",
-            "hirapur": "Hirapur",
-            "citycenter": "City Center",
-            "bigbazzar": "Big Bazzar",
-            "memkomore": "Memko More"
+            "wom": "WOW MOMO'S HUT",
+            "super": "Super Delicious Momos",
+            "spicy": "SPICY CHAT & MOMO'S",
+            "panda": "Momo Panda",
+            "gmomo": "Golu Momos Centre",
+            "darjeeling": "Darjeeling Momos Rohit",
+            "kmomos": "Krishna Momos",
         }
 
         # Create a new customer record
         new_customer = Customer(
-            eating_fre=fre,
-            momos_var=menu_dict[varity],
-            addon=addon,
-            gender=gender,
-            name=name,
-            preffered_time=pre,
+            eating_fre=fre.lower(),
+            momos_var=menu_dict[varity].lower(),
+            addon=addon.lower(),
+            gender=gender.lower(),
+            name=name.lower(),
+            preffered_time=pre.lower(),
             age=age,
-            place=location_dict[place],
-            occupation=occu,
+            place=location_dict[place].lower(),
+            occupation=occu.lower(),
             review=review,
-            substitute=substitute
+            substitute=substitute.lower()
         )
         db.session.add(new_customer)
         db.session.commit()
