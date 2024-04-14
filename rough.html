@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scratch Card</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Custom CSS for scratch card effect -->
+  <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./app.js" defer></script>
+    <script src="./wScratchpad.min.js"></script>
+  <style>
+    .scratch-card {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background-color: black;
+    }
+    .scratch-card canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .scratch-text {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="scratch-card" @mousemove="scratch($event)" @mouseup="revealPrize">
+          <canvas ref="canvas" width="300" height="200"></canvas>
+          <div class="scratch-text" v-if="!revealed">Scratch here to reveal your prize!</div>
+          <div class="scratch-text" v-if="revealed">{{ reward }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap JS (requires jQuery) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        revealed: false,
+        reward: 'You won $10!'
+      },
+      methods: {
+        scratch(event) {
+          if (!this.revealed && event.buttons === 1) { // Only scratch if left mouse button is pressed
+            const canvas = this.$refs.canvas;
+            const ctx = canvas.getContext('2d');
+            const rect = canvas.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+
+            // Scratch effect
+            ctx.beginPath();
+            ctx.arc(x, y, 20, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.closePath();
+          }
+        },
+        revealPrize() {
+          if (!this.revealed) {
+            const canvas = this.$refs.canvas;
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const totalPixels = imageData.data.length / 4;
+            const transparentPixels = Array.from(imageData.data).filter((_, i) => i % 4 === 3 && imageData.data[i] === 0).length / 4;
+            const revealedPercentage = transparentPixels / totalPixels;
+
+            // If 80% is scratched, reveal the reward
+            if (revealedPercentage >= 0.8) {
+              this.revealed = true;
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

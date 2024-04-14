@@ -68,6 +68,7 @@ def submit_form():
             "gmomo": "Golu Momos Centre",
             "darjeeling": "Darjeeling Momos Rohit",
             "kmomos": "Krishna Momos",
+            "xomo": "MOMO XOMO"
         }
 
         # Create a new customer record
